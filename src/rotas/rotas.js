@@ -1,9 +1,13 @@
 const { Router } = require('express');
-const controladorAgencia = require('../controladores/controladores');
-const mostrarBanco = require('../controladores/controladores');
+const { mostrarBanco, criarConta } = require('../controladores/controladores');
 
 const rotas = Router();
 
-rotas.get('/', mostrarBanco);
+//Lista contas
+rotas.get('/contas', mostrarBanco);
+
+//Cria conta
+rotas.post('/contas', criarConta);
+
 
 module.exports = rotas;
