@@ -1,5 +1,6 @@
 let { contas } = require('../bancodedados');
 
+
 // Validar entrada de dados
 function validarEntradasContas(req, res, nome, cpf, data_nascimento, telefone, email, senha) {
 
@@ -32,11 +33,13 @@ const criarConta = (req, res) => {
     }
     if (indiceContas === 0) {
         contas.push(req.body);
-        contas[indiceContas].conta = 0;
+        contas[indiceContas].saldo = 0;
+        contas[indiceContas].conta = 1;
         return res.json(contas);
     } else {
         const ultimaConta = contas[indiceContas - 1].conta;
         contas.push(req.body);
+        contas[indiceContas].saldo = 0;
         contas[indiceContas].conta = ultimaConta + 1;
         return res.json(contas);
     }
