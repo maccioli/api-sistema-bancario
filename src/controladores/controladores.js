@@ -5,10 +5,10 @@ let { contas } = require('../bancodedados');
 function validarEntradasContas(req, res, nome, cpf, data_nascimento, telefone, email, senha) {
 
     if (!nome || !cpf || !data_nascimento || !telefone || !email || !senha) {
-        return res.json({ mensagem: 'Todos os campos são obrigatórios' });
+        return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
     }
     if (!nome.trim() || !cpf.trim() || !data_nascimento.trim() || !telefone.trim() || !email.trim() || !senha.trim()) {
-        return res.json({ mensagem: 'Todos os campos devem ser preenchidos' });
+        return res.status(400).json({ mensagem: 'Todos os campos devem ser preenchidos' });
     }
 }
 
@@ -29,19 +29,19 @@ const criarConta = (req, res) => {
     validarEntradasContas(req, res, nome, cpf, data_nascimento, telefone, email, senha);
 
     if (validaCpf || validaEmail) {
-        return res.json({ mensagem: 'Já existe uma conta com o cpf ou e-mail informado!' });
+        return res.status(409).json({ mensagem: 'Já existe uma conta com o cpf ou e-mail informado!' });
     }
     if (indiceContas === 0) {
         contas.push(req.body);
         contas[indiceContas].saldo = 0;
         contas[indiceContas].conta = 1;
-        return res.json(contas);
+        return res.status(201).json(contas);
     } else {
         const ultimaConta = contas[indiceContas - 1].conta;
         contas.push(req.body);
         contas[indiceContas].saldo = 0;
         contas[indiceContas].conta = ultimaConta + 1;
-        return res.json(contas);
+        return res.status(201).json(contas);
     }
 }
 

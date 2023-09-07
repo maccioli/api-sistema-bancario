@@ -20,7 +20,21 @@ const validarSenhaUsuario = (req, res, next) => {
     next();
 }
 
+const validarSenhaUsuarioBody = (req, res, contaEncontrada, senha) => {
+    if (!senha) {
+        res.status(400).json('Necessario validar com uma senha');
+        return false;
+    }
+    else if (senha !== contaEncontrada) {
+        res.status(401).json({ mensage: 'A senha do usuario informada é inválida!' });
+        return false;
+    } else {
+        return true;
+    }
+}
+
 module.exports = {
     validarSenha,
-    validarSenhaUsuario
+    validarSenhaUsuario,
+    validarSenhaUsuarioBody
 }

@@ -1,16 +1,15 @@
 const { Router } = require('express');
-const { depositar, sacar } = require('../controladores/controleusuario');
-const { validarSenhaUsuario } = require('../intermediarios');
+const { depositar, sacar, transferencia } = require('../controladores/controleusuario');
+//const { validarSenhaUsuario } = require('../intermediarios');
 
 const rotasUsuarios = Router();
 
 //Depositar /transacoes/depositar
 rotasUsuarios.post('/transacoes/depositar', depositar);
-
 //Sacar
-//rotasUsuarios.post('/transacoes/sacar', sacar);
+rotasUsuarios.post('/transacoes/sacar', sacar);
 //Transferir
-//rotasUsuarios.post('/transacoes/transferir', );
+rotasUsuarios.post('/transacoes/transferir', transferencia);
 //Saldo
 
 //Extrato
