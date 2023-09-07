@@ -33,7 +33,7 @@ const sacar = (req, res) => {
     validarSenhaUsuarioBody(req, res, contaEncontrada, senha);
     validarEntradasUsuario(req, res, index, numeroConta, valor);
     if (contas[index].saldo - valor < 0) {
-        return res.json({ mensagem: 'Saldo insuficiente!' });
+        return res.status(400).json({ mensagem: 'Saldo insuficiente!' });
     }
     contas[index].saldo = contas[index].saldo - valor;
     res.json(contas);

@@ -14,7 +14,7 @@ function validarEntradasContas(req, res, nome, cpf, data_nascimento, telefone, e
 
 // Listar todas as contas bancarias
 const mostrarBanco = (req, res) => {
-    res.json(contas);
+    res.status(200).json(contas);
 }
 
 // Criar conta bancaria
@@ -60,10 +60,10 @@ const atualizarConta = (req, res) => {
         return res.status(404).json({ mensagem: 'Conta não encontrada' });
     }
     if (verificaCpf.length > 1) {
-        return res.json({ mensagem: 'O CPF informado já existe cadastrado!' });
+        return res.status(409).json({ mensagem: 'O CPF informado já existe cadastrado!' });
     }
     if (verificaEmail.length > 1) {
-        return res.json({ mensagem: 'O e-mail informado já existe cadastrado!' });
+        return res.status(409).json({ mensagem: 'O e-mail informado já existe cadastrado!' });
     }
 
     contaEncontrada.nome = nome;
