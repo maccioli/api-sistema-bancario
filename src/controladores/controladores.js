@@ -5,11 +5,14 @@ let { contas } = require('../bancodedados');
 function validarEntradasContas(req, res, nome, cpf, data_nascimento, telefone, email, senha) {
 
     if (!nome || !cpf || !data_nascimento || !telefone || !email || !senha) {
-        return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
+        res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
+        return false;
     }
     if (!nome.trim() || !cpf.trim() || !data_nascimento.trim() || !telefone.trim() || !email.trim() || !senha.trim()) {
-        return res.status(400).json({ mensagem: 'Todos os campos devem ser preenchidos' });
+        res.status(400).json({ mensagem: 'Todos os campos devem ser preenchidos' });
+        return false;
     }
+    return true;
 }
 
 // Listar todas as contas bancarias
@@ -50,6 +53,7 @@ const criarConta = (req, res) => {
 const atualizarConta = (req, res) => {
 
     const { nome, cpf, data_nascimento, telefone, email, senha } = req.body;
+
     const contaEncontrada = contas.find(conta => conta.conta === Number(req.params.numeroConta));
     const verificaCpf = contas.filter(conta => conta.cpf === cpf);
     const verificaEmail = contas.filter(conta => conta.email === email);

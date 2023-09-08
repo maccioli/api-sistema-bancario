@@ -11,7 +11,7 @@ module.exports = {
             "cpf": "999329222436",
             "data_nascimento": "2021-03-15",
             "telefone": "71999498857",
-            "email": "f3o23o1@bar3.com",
+            "email": "foobar1@bar3.com",
             "senha": "12345",
             "conta": 1,
             "saldo": 0
@@ -21,7 +21,7 @@ module.exports = {
             "cpf": "999329222435",
             "data_nascimento": "2021-03-15",
             "telefone": "71999498858",
-            "email": "f3o23o1@bar3.com",
+            "email": "foobar2foobar1@bar3.com",
             "senha": "12345",
             "conta": 2,
             "saldo": 0

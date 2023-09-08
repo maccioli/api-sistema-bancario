@@ -11,7 +11,7 @@ rotas.get('/contas', validarSenha, mostrarBanco);
 rotas.post('/contas', validarSenha, criarConta);
 
 //Atualiza conta
-rotas.put('/contas/:numeroConta', validarSenha, atualizarConta);
+rotas.put('/contas/:numeroConta/usuario', validarSenha, atualizarConta);
 
 //Excluir conta
 rotas.delete('/contas/:numeroConta', validarSenha, excluirConta);
