@@ -1,38 +1,8 @@
 let { contas, saques, depositos, transferencias } = require('../bancodedados');
+const { dataFormatada, validarEntradasUsuario, validarSaldoExtrato, localizarIndex } = require('./funcauxiliarusuario');
 const { validarSenhaUsuarioBody } = require('../intermediarios');
 
-function dataFormatada(date) {
-    const ano = date.getFullYear();
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0');
-    const horas = String(date.getHours()).padStart(2, '0');
-    const minutos = String(date.getMinutes()).padStart(2, '0');
-    const segundos = String(date.getSeconds()).padStart(2, '0');
-
-    return `${ano}-${dia}-${mes} ${horas}:${minutos}:${segundos}`;
-}
 const dataSet = dataFormatada(new Date());
-
-function validarEntradasUsuario(req, res, index, numeroConta, valor) {
-    if (!numeroConta || !valor) {
-        res.status(400).json({ mensagem: 'O número da conta e o valor são obrigatórios!' })
-        return false;
-    }
-    if (index === -1) {
-        res.status(404).json({ mensagem: 'Conta não encontrada, verifique o numero.' })
-        return false;
-    }
-    if (valor < 1) {
-        res.status(400).json({ mensagem: 'Necessário deposito com valores positivos' });
-        return false;
-    }
-    return true;
-}
-
-function localizarIndex(nconta) {
-    const contaEncontrada = contas.findIndex(conta => conta.conta === nconta);
-    return contaEncontrada;
-}
 
 const depositar = (req, res) => {
     const { numeroConta, valor } = req.body;
@@ -92,16 +62,7 @@ const saldo = (req, res) => {
     const numero_conta = Number(req.query.numero_conta);
     const senhaQuery = req.query.senha;
     const index = localizarIndex(numero_conta);
-    if (!numero_conta || !senhaQuery) {
-        res.send('Falso');
-    }
-    if (index === -1) {
-        res.status(404).json({ mensagem: 'Conta não encontrada, verifique o numero.' })
-        return false;
-    }
-    if (contas[index].senha !== senhaQuery) {
-        return res.json({ mensagem: 'A senha do usuario informada é inválida!' })
-    }
+    validarSaldoExtrato(req, res, index, numero_conta, senhaQuery);
 
     return res.send({ saldo: contas[index].saldo * 100 });
 }
@@ -110,17 +71,7 @@ const extrato = (req, res) => {
     const numero_conta = Number(req.query.numero_conta);
     const senhaQuery = req.query.senha;
     const index = localizarIndex(numero_conta);
-    if (!numero_conta || !senhaQuery) {
-        res.send('Falso');
-    }
-    if (index === -1) {
-        res.status(404).json({ mensagem: 'Conta não encontrada, verifique o numero.' })
-        return false;
-    }
-    if (contas[index].senha !== senhaQuery) {
-        res.json({ mensagem: 'A senha do usuario informada é inválida!' })
-        return false;
-    }
+    validarSaldoExtrato(req, res, index, numero_conta, senhaQuery);
 
     const extratoDeposito = depositos.filter((conta) => {
         return conta.numero_conta === numero_conta;
