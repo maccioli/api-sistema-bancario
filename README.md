@@ -1,14 +1,20 @@
 ![](https://i.imgur.com/xG74tOh.png)
 
-# Desafio Módulo 2 - Back-end
+# API Sistema Bancário
+API de sistema bancário desenvolvida por Marcio Accioli para o desafio de Back-end do módulo 02 do curso Cubos Academy.
 
-## Como entregar?
+## Tecnologias utilizadas no desenvolvimento deste sistema:
+
+## Como executar o projeto:
 
 - [ ] Faça o fork desse repositório para o seu GitHub
 - [ ] Clone o seu repositório em sua máquina
 - [ ] Desenvolva seu projeto, fazendo commits a cada alteração e push
 - [ ] Crie um PR (pull request)
 - [ ] Envie o link do pull request que você criou na plataforma da Cubos
+- [ ] 
+
+## Pré-requisitos
 
 ### ⚠️ Importante: Se o pull request não for criado e enviado na plataforma o feedback não será fornecido e constará como não entregue
 
